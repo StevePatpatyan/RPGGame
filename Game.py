@@ -1,18 +1,16 @@
 from graphics import*
-def contains(self,p):
-    leftBound = self.point.x;
-    rightBound = self.point.x + 15;
-    upBound = self.point.y - 21;
-    lowBound = self.point.y + 15;
-    if(p.x >= leftBound and p.x <= rightBound and p.y >= upBound and p.y <= lowBound):
-        return True;
-    else:
-        return False;
-        
 win = GraphWin("RPG GAME",1000,500)
-start = Rectangle(Point(100,100),Point(200,200))
+start = Rectangle(Point(100,100),Point(300,200))
 start.draw(win)
+close = Rectangle(Point(400,100),Point(600,200))
+close.draw(win)
+#Start Screen:
 while (True):    
         introButton = win.getMouse()
-        if (start.contains(introButton)):
-            print("yurr")
+        if (introButton.getX()>=start.getP1().getX() and introButton.getX()<=start.getP2().getX() and introButton.getY()>=start.getP1().getY() and introButton.getY()<=start.getP2().getY()):
+            print("ok!")
+        elif (introButton.getX()>=close.getP1().getX() and introButton.getX()<=close.getP2().getX() and introButton.getY()>=close.getP1().getY() and introButton.getY()<=close.getP2().getY()):
+            win.close()
+            break
+
+
