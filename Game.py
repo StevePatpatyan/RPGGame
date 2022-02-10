@@ -32,9 +32,17 @@ while (True):
         woodenSword1.draw(win)
         hp1 = 100
         hp2 = 100
+        turn = None
+        coin = ["heads","tails"]
+        coinText = Text(Point(500,100),"Pick a side.")
+        #heads = Rectangle
         p1Fight = Rectangle(Point(100,100),Point(300,150))
         p1Fight.draw(win)
         p1Defend = Rectangle(Point(100,150),Point(300,200))
         p1Defend.draw(win)
+        p2Fight = Rectangle(Point(700,100),Point(900,150))
+        p2Fight.draw(win)
+        p2Defend = Rectangle(Point(700,150),Point(900,200))
+        p2Defend.draw(win)
                 
                 
