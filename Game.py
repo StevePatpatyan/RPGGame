@@ -1,16 +1,40 @@
 from graphics import*
+from Person import*
+#Start Screen:
 win = GraphWin("RPG GAME",1000,500)
 start = Rectangle(Point(100,100),Point(300,200))
 start.draw(win)
+startText = Text(Point(200,150),"START")
+startText.draw(win)
 close = Rectangle(Point(400,100),Point(600,200))
 close.draw(win)
-#Start Screen:
-while (True):    
-        introButton = win.getMouse()
-        if (introButton.getX()>=start.getP1().getX() and introButton.getX()<=start.getP2().getX() and introButton.getY()>=start.getP1().getY() and introButton.getY()<=start.getP2().getY()):
-            print("ok!")
-        elif (introButton.getX()>=close.getP1().getX() and introButton.getX()<=close.getP2().getX() and introButton.getY()>=close.getP1().getY() and introButton.getY()<=close.getP2().getY()):
-            win.close()
-            break
-
-
+closeText = Text(Point(500,150),"EXIT")
+closeText.draw(win)
+while (True):
+        while (True):
+                introButton = win.getMouse()
+                if (introButton.getX()>=start.getP1().getX() and introButton.getX()<=start.getP2().getX() and introButton.getY()>=start.getP1().getY() and introButton.getY()<=start.getP2().getY()):
+                        start.undraw()
+                        close.undraw()
+                        startText.undraw()
+                        closeText.undraw()
+                        break
+                elif (introButton.getX()>=close.getP1().getX() and introButton.getX()<=close.getP2().getX() and introButton.getY()>=close.getP1().getY() and introButton.getY()<=close.getP2().getY()):
+                        win.close()
+                        break
+        p1 = Person(400,400,20,50,25,25,":|","|")
+        p1.draw(win)
+        p2 = Person(600,400,20,50,25,25,":|","/")
+        p2.draw(win)
+        woodenSword = Image(Point(441,427),"WoodenSword.png")
+        woodenSword.draw(win)
+        woodenSword1 = Image(Point(559,427),"WoodenSword1.png")
+        woodenSword1.draw(win)
+        hp1 = 100
+        hp2 = 100
+        p1Fight = Rectangle(Point(100,100),Point(300,150))
+        p1Fight.draw(win)
+        p1Defend = Rectangle(Point(100,150),Point(300,200))
+        p1Defend.draw(win)
+                
+                
