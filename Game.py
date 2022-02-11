@@ -1,5 +1,6 @@
 from graphics import*
 from Person import*
+from random import*
 #Start Screen:
 win = GraphWin("RPG GAME",1000,500)
 while (True):
@@ -26,12 +27,15 @@ while (True):
         p1.draw(win)
         p2 = Person(600,400,20,50,25,25,":|","/")
         p2.draw(win)
-        #woodenSword = Image(Point(441,427),"WoodenSword.png")
-        #woodenSword.draw(win)
-        #woodenSword1 = Image(Point(559,427),"WoodenSword1.png")
-        #woodenSword1.draw(win)
+        woodenSword = Image(Point(441,427),"WoodenSword.png")
+        woodenSword.draw(win)
+        woodenSword1 = Image(Point(559,427),"WoodenSword1.png")
+        woodenSword1.draw(win)
+        player = ["Player 1","Player 2"]
         hp1 = 100
         hp2 = 100
+        speed1 = 0
+        speed2 = 0
         turn = None
         #coin flip to determine who gets priority:
         coin = ["heads","tails"]
@@ -39,8 +43,12 @@ while (True):
         coinText.draw(win)
         heads = Rectangle(Point(200,100),Point(400,200))
         heads.draw(win)
+        headsText = Text(Point(300,150),"HEADS")
+        headsText.draw(win)
         tails = Rectangle(Point(600,100),Point(800,200))
         tails.draw(win)
+        tailsText = Text(Point(700,150),"TAILS")
+        tailsText.draw(win)
         while (True):
                 coinButton = win.getMouse()
                 if (coinButton.getX()>=heads.getP1().getX() and coinButton.getX()<=heads.getP2().getX() and coinButton.getY()>=heads.getP1().getY() and coinButton.getY()<=heads.getP2().getY()):
@@ -49,10 +57,22 @@ while (True):
                 elif (coinButton.getX()>=tails.getP1().getX() and coinButton.getX()<=tails.getP2().getX() and coinButton.getY()>=tails.getP1().getY() and coinButton.getY()<=tails.getP2().getY()):
                       pVal = 1
                       break
-        prediction = coin[pVal]
         coinText.undraw()
         heads.undraw()
         tails.undraw()
+        headsText.undraw()
+        tailsText.undraw()
+        prediction = coin[pVal]
+        resultCoin = coin[randint(0,1)]
+        if (prediction==resultCoin):
+                speed1 = speed1+10
+                playerTextVal = 0
+        elif(prediction!=resultCoin):
+                speed2 = speed2+10
+                playerTextVal = 1
+        resultText = Text(Point(500,50),"The result is "+resultCoin+"! "+player[playerTextVal]+" gets +10 speed.")
+        resultText.draw(win)
+        win.getMouse()
         #Players choose their move:
         p1Fight = Rectangle(Point(100,100),Point(300,150))
         p1Fight.draw(win)
@@ -62,7 +82,7 @@ while (True):
         p1Defend.draw(win)
         p1DefendText = Text(Point(200,175),"Deflect?")
         p1DefendText.draw(win)
-        p1Status = ["fight","defend"]
+        status = ["fight","defend"]
         while (True):
                 p1Button = win.getMouse()
                 if (p1Button.getX()>=p1Fight.getP1().getX() and p1Button.getX()<=p1Fight.getP2().getX() and p1Button.getY()>=p1Fight.getP1().getY() and p1Button.getY()<=p1Fight.getP2().getY()):
@@ -71,8 +91,8 @@ while (True):
                 elif (p1Button.getX()>=p1Defend.getP1().getX() and p1Button.getX()<=p1Defend.getP2().getX() and p1Button.getY()>=p1Defend.getP1().getY() and p1Button.getY()<=p1Defend.getP2().getY()):
                         p1sVal = 1
                         break
-        p1FightDefend = p1Status[p1sVal]
-        p2FightDefend = p2Status[p2SVal]
+        p1FightDefend = status[p1sVal]
+        p2FightDefend = status[p2SVal]
         p2Fight = Rectangle(Point(700,100),Point(900,150))
         p2Fight.draw(win)
         p2Defend = Rectangle(Point(700,150),Point(900,200))
