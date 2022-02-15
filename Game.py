@@ -27,16 +27,17 @@ while (True):
         p1.draw(win)
         p2 = Person(600,400,20,50,25,25,":|","/")
         p2.draw(win)
-        woodenSword = Image(Point(441,427),"WoodenSword.png")
-        woodenSword.draw(win)
-        woodenSword1 = Image(Point(559,427),"WoodenSword1.png")
-        woodenSword1.draw(win)
+        p1WeaponName = "WoodenSword.png"
+        p2WeaponName = "WoodenSword1.png"
+        p1Weapon = Image(Point(441,427),p1WeaponName)
+        p1Weapon.draw(win)
+        p2Weapon = Image(Point(559,427),p2WeaponName)
+        p2Weapon.draw(win)
         player = ["Player 1","Player 2"]
         hp1 = 100
         hp2 = 100
         speed1 = 0
         speed2 = 0
-        turn = None
         #coin flip to determine who gets priority:
         coin = ["heads","tails"]
         coinText = Text(Point(500,50),"Pick a side.")
@@ -73,29 +74,102 @@ while (True):
         resultText = Text(Point(500,50),"The result is "+resultCoin+"! "+player[playerTextVal]+" gets +10 speed.")
         resultText.draw(win)
         win.getMouse()
-        #Players choose their move:
-        p1Fight = Rectangle(Point(100,100),Point(300,150))
-        p1Fight.draw(win)
-        p1FightText = Text(Point(200,125),"Attack")
-        p1FightText.draw(win)
-        p1Defend = Rectangle(Point(100,150),Point(300,200))
-        p1Defend.draw(win)
-        p1DefendText = Text(Point(200,175),"Deflect?")
-        p1DefendText.draw(win)
+        resultText.undraw()
         status = ["fight","defend"]
-        while (True):
-                p1Button = win.getMouse()
-                if (p1Button.getX()>=p1Fight.getP1().getX() and p1Button.getX()<=p1Fight.getP2().getX() and p1Button.getY()>=p1Fight.getP1().getY() and p1Button.getY()<=p1Fight.getP2().getY()):
-                        p1sVal = 0
-                        break
-                elif (p1Button.getX()>=p1Defend.getP1().getX() and p1Button.getX()<=p1Defend.getP2().getX() and p1Button.getY()>=p1Defend.getP1().getY() and p1Button.getY()<=p1Defend.getP2().getY()):
-                        p1sVal = 1
-                        break
-        p1FightDefend = status[p1sVal]
-        p2FightDefend = status[p2SVal]
-        p2Fight = Rectangle(Point(700,100),Point(900,150))
-        p2Fight.draw(win)
-        p2Defend = Rectangle(Point(700,150),Point(900,200))
-        p2Defend.draw(win)
-                
-                
+        p1WMulti = 1
+        p2WMulti = 1
+        #Players choose their move:
+        while (hp1>0 and hp2>0):
+                turn = None
+                if (p1WeaponName == "WoodenSword.png"):
+                        p1WeaponDMG = 5
+                if (p1WeaponName == "StoneSword.png"):
+                        p1WeaponDMG = 10
+                elif (p1WeaponName == "IronSword.png"):
+                        p1WeaponDMG = 20
+                elif (p1WeaponName == "DiamondSword.png"):
+                        p1WeaponDMG = 40
+                elif (p1WeaponName == "Trident.png"):
+                        p1WeaponDMG = 80
+                p1Weapon.undraw()
+                p2Weapon.undraw()
+                p1Weapon.draw(win)
+                p2Weapon.draw(win)
+                p1Fight = Rectangle(Point(100,100),Point(300,150))
+                p1Fight.draw(win)
+                p1FightText = Text(Point(200,125),"Attack")
+                p1FightText.draw(win)
+                p1Defend = Rectangle(Point(100,160),Point(300,210))
+                p1Defend.draw(win)
+                p1DefendText = Text(Point(200,185),"Deflect?")
+                p1DefendText.draw(win)
+                while (True):
+                        p1Button = win.getMouse()
+                        if (p1Button.getX()>=p1Fight.getP1().getX() and p1Button.getX()<=p1Fight.getP2().getX() and p1Button.getY()>=p1Fight.getP1().getY() and p1Button.getY()<=p1Fight.getP2().getY()):
+                                p1sVal = 0
+                                break
+                        elif (p1Button.getX()>=p1Defend.getP1().getX() and p1Button.getX()<=p1Defend.getP2().getX() and p1Button.getY()>=p1Defend.getP1().getY() and p1Button.getY()<=p1Defend.getP2().getY()):
+                                p1sVal = 1
+                                break
+                p1Fight.undraw()
+                p1FightText.undraw()
+                p1Defend.undraw()
+                p1DefendText.undraw()
+                if (p2WeaponName == "WoodenSword1.png"):
+                        p2WeaponDMG = 5
+                if (p2WeaponName == "StoneSword1.png"):
+                        p2WeaponDMG = 10
+                if (p2WeaponName == "IronSword1.png"):
+                        p2WeaponDMG = 20
+                if (p2WeaponName == "DiamondSword1.png"):
+                        p2WeaponDMG = 40
+                if (p2WeaponName == "Trident1.png"):
+                        p2WeaponDMG = 80
+                p2Fight = Rectangle(Point(700,100),Point(900,150))
+                p2Fight.draw(win)
+                p2FightText = Text(Point(800,125),"Attack")
+                p2FightText.draw(win)
+                p2Defend = Rectangle(Point(700,160),Point(900,210))
+                p2Defend.draw(win)
+                p2DefendText = Text(Point(800,185),"Deflect?")
+                p2DefendText.draw(win)
+                while (True):
+                        p2Button = win.getMouse()
+                        if (p2Button.getX()>=p2Fight.getP1().getX() and p2Button.getX()<=p2Fight.getP2().getX() and p2Button.getY()>=p2Fight.getP1().getY() and p2Button.getY()<=p2Fight.getP2().getY()):
+                                p2sVal = 0
+                                break
+                        elif (p2Button.getX()>=p2Defend.getP1().getX() and p2Button.getX()<=p2Defend.getP2().getX() and p2Button.getY()>=p2Defend.getP1().getY() and p2Button.getY()<=p2Defend.getP2().getY()):
+                                p2sVal = 1
+                                break
+                p2Fight.undraw()
+                p2FightText.undraw()
+                p2Defend.undraw()
+                p2DefendText.undraw()
+                #Moves begin:
+                if (speed1>speed2):
+                        if (status[p1sVal]=="fight"):
+                                hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                elif (speed2>speed1):
+                        if (status[p2sVal]=="fight"):
+                                hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                elif (speed1==speed2):
+                        randomTurn = randint(0,1)
+                        turn = player[randomTurn]
+                        if (turn=="Player 1"):
+                                if (status[p1sVal]=="fight"):
+                                        hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                        elif (turn=="Player 2"):
+                                if (status[p2sVal]=="fight"):
+                                        hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                if (speed1<speed2):
+                        if (status[p1sVal]=="fight"):
+                                hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                elif (speed2<speed1):
+                        if (status[p2sVal]=="fight"):
+                                hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                elif (turn=="Player 2"):
+                        if (status[p1sVal]=="fight"):
+                                hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                elif (turn=="Player 1"):
+                        if (status[p2sVal]=="fight"):
+                                hp1 = hp1-(p2WeaponDMG*p2WMulti)
