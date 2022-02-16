@@ -76,20 +76,24 @@ while (True):
         win.getMouse()
         resultText.undraw()
         status = ["fight","defend"]
+        p1wVal = 0
+        p2wVal = 0
         p1WMulti = 1
         p2WMulti = 1
+        p1WeaponName = ["WoodenSword.png","StoneSword.png","IronSword.png","DiamondSword.png","Trident.png"]
+        p2WeaponName = ["WoodenSword1.png","StoneSword1.png","IronSword1.png","DiamondSword1.png","Trident1.png"]
         #Players choose their move:
         while (hp1>0 and hp2>0):
                 turn = None
-                if (p1WeaponName == "WoodenSword.png"):
+                if (p1WeaponName[p1wVal] == "WoodenSword.png"):
                         p1WeaponDMG = 5
-                if (p1WeaponName == "StoneSword.png"):
+                elif (p1WeaponName[p1wVal] == "StoneSword.png"):
                         p1WeaponDMG = 10
-                elif (p1WeaponName == "IronSword.png"):
+                elif (p1WeaponName[p1wVal] == "IronSword.png"):
                         p1WeaponDMG = 20
-                elif (p1WeaponName == "DiamondSword.png"):
+                elif (p1WeaponName[p1wVal] == "DiamondSword.png"):
                         p1WeaponDMG = 40
-                elif (p1WeaponName == "Trident.png"):
+                elif (p1WeaponName[p1wVal] == "Trident.png"):
                         p1WeaponDMG = 80
                 p1Weapon.undraw()
                 p2Weapon.undraw()
@@ -115,15 +119,15 @@ while (True):
                 p1FightText.undraw()
                 p1Defend.undraw()
                 p1DefendText.undraw()
-                if (p2WeaponName == "WoodenSword1.png"):
+                if (p2WeaponName[p2wVal] == "WoodenSword1.png"):
                         p2WeaponDMG = 5
-                if (p2WeaponName == "StoneSword1.png"):
+                elif (p2WeaponName[p2wVal] == "StoneSword1.png"):
                         p2WeaponDMG = 10
-                if (p2WeaponName == "IronSword1.png"):
+                elif (p2WeaponName[p2wVal] == "IronSword1.png"):
                         p2WeaponDMG = 20
-                if (p2WeaponName == "DiamondSword1.png"):
+                elif (p2WeaponName[p2wVal] == "DiamondSword1.png"):
                         p2WeaponDMG = 40
-                if (p2WeaponName == "Trident1.png"):
+                elif (p2WeaponName[p2wVal] == "Trident1.png"):
                         p2WeaponDMG = 80
                 p2Fight = Rectangle(Point(700,100),Point(900,150))
                 p2Fight.draw(win)
