@@ -84,6 +84,8 @@ while (True):
         p2WeaponName = ["WoodenSword1.png","StoneSword1.png","IronSword1.png","DiamondSword1.png","Trident1.png"]
         #Players choose their move:
         while (hp1>0 and hp2>0):
+                defDet1 = randint(0,1)
+                defDet2 = randint(0,1)
                 turn = None
                 if (p1WeaponName[p1wVal] == "WoodenSword.png"):
                         p1WeaponDMG = 5
@@ -149,31 +151,80 @@ while (True):
                 p2FightText.undraw()
                 p2Defend.undraw()
                 p2DefendText.undraw()
+                
                 #Moves begin:
                 if (speed1>speed2):
                         if (status[p1sVal]=="fight"):
-                                hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                                if (status[p2sVal]=="defend" and defDet2==0):
+                                        hp1 = hp1-(p1WeaponDMG*p1WMulti)
+                                elif (status[p2sVal]=="defend" and defDet2==1):
+                                        #fail text.....
+                                        hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                                else:
+                                        hp2 = hp2-(p1WeaponDMG*p1WMulti)
                 elif (speed2>speed1):
                         if (status[p2sVal]=="fight"):
-                                hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                                if (status[p1sVal]=="defend" and defDet1==0):
+                                        hp2 = hp2-(p2WeaponDMG*p2WMulti)
+                                elif (status[p1sVal]=="defend" and defDet1==1):
+                                        #fail text.....
+                                        hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                                else:
+                                        hp1 = hp1-(p1WeaponDMG*p1WMulti)
                 elif (speed1==speed2):
                         randomTurn = randint(0,1)
                         turn = player[randomTurn]
                         if (turn=="Player 1"):
                                 if (status[p1sVal]=="fight"):
+                                        if (status[p2sVal]=="defend" and defDet2==0):
+                                        hp1 = hp1-(p1WeaponDMG*p1WMulti)
+                                elif (status[p2sVal]=="defend" and defDet2==1):
+                                        #fail text.....
+                                        hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                                else:
                                         hp2 = hp2-(p1WeaponDMG*p1WMulti)
                         elif (turn=="Player 2"):
                                 if (status[p2sVal]=="fight"):
+                                        if (status[p1sVal]=="defend" and defDet1==0):
+                                        hp2 = hp2-(p2WeaponDMG*p2WMulti)
+                                elif (status[p1sVal]=="defend" and defDet1==1):
+                                        #fail text.....
+                                        hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                                else:
                                         hp1 = hp1-(p2WeaponDMG*p2WMulti)
                 if (speed1<speed2):
                         if (status[p1sVal]=="fight"):
-                                hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                                if (status[p2sVal]=="defend" and defDet2==0):
+                                        hp1 = hp1-(p1WeaponDMG*p1WMulti)
+                                elif (status[p2sVal]=="defend" and defDet2==1):
+                                        #fail text.....
+                                        hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                                else:
+                                        hp2 = hp2-(p1WeaponDMG*p1WMulti)
                 elif (speed2<speed1):
                         if (status[p2sVal]=="fight"):
-                                hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                                if (status[p1sVal]=="defend" and defDet1==0):
+                                        hp2 = hp2-(p2WeaponDMG*p2WMulti)
+                                elif (status[p1sVal]=="defend" and defDet1==1):
+                                        #fail text.....
+                                        hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                                else:
+                                        hp1 = hp1-(p1WeaponDMG*p1WMulti)
                 elif (turn=="Player 2"):
                         if (status[p1sVal]=="fight"):
-                                hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                                if (status[p2sVal]=="defend" and defDet2==0):
+                                        hp1 = hp1-(p1WeaponDMG*p1WMulti)
+                                elif (status[p2sVal]=="defend" and defDet2==1):
+                                        #fail text.....
+                                        hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                                else:
+                                        hp2 = hp2-(p1WeaponDMG*p1WMulti)
                 elif (turn=="Player 1"):
                         if (status[p2sVal]=="fight"):
-                                hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                                if (status[p1sVal]=="defend" and defDet1==0):
+                                        hp2 = hp2-(p2WeaponDMG*p2WMulti)
+                                elif (status[p1sVal]=="defend" and defDet1==1):
+                                        #fail text.....
+                                        hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                                else:
+                                        hp1 = hp1-(p2WeaponDMG*p2WMulti)
