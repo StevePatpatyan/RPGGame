@@ -151,7 +151,7 @@ while (True):
                 p2FightText.undraw()
                 p2Defend.undraw()
                 p2DefendText.undraw()
-                
+                pMoveText = Text(Point(500,50),player[
                 #Moves begin:
                 if (speed1>speed2):
                         if (status[p1sVal]=="fight"):
@@ -177,21 +177,21 @@ while (True):
                         if (turn=="Player 1"):
                                 if (status[p1sVal]=="fight"):
                                         if (status[p2sVal]=="defend" and defDet2==0):
-                                        hp1 = hp1-(p1WeaponDMG*p1WMulti)
-                                elif (status[p2sVal]=="defend" and defDet2==1):
-                                        #fail text.....
-                                        hp2 = hp2-(p1WeaponDMG*p1WMulti)
-                                else:
-                                        hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                                                hp1 = hp1-(p1WeaponDMG*p1WMulti)
+                                        elif (status[p2sVal]=="defend" and defDet2==1):
+                                                #fail text.....
+                                                hp2 = hp2-(p1WeaponDMG*p1WMulti)
+                                        else:
+                                                hp2 = hp2-(p1WeaponDMG*p1WMulti)
                         elif (turn=="Player 2"):
                                 if (status[p2sVal]=="fight"):
                                         if (status[p1sVal]=="defend" and defDet1==0):
-                                        hp2 = hp2-(p2WeaponDMG*p2WMulti)
-                                elif (status[p1sVal]=="defend" and defDet1==1):
-                                        #fail text.....
-                                        hp1 = hp1-(p2WeaponDMG*p2WMulti)
-                                else:
-                                        hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                                                hp2 = hp2-(p2WeaponDMG*p2WMulti)
+                                        elif (status[p1sVal]=="defend" and defDet1==1):
+                                                #fail text.....
+                                                hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                                        else:
+                                                hp1 = hp1-(p2WeaponDMG*p2WMulti)
                 if (speed1<speed2):
                         if (status[p1sVal]=="fight"):
                                 if (status[p2sVal]=="defend" and defDet2==0):
@@ -227,4 +227,8 @@ while (True):
                                         #fail text.....
                                         hp1 = hp1-(p2WeaponDMG*p2WMulti)
                                 else:
+                                        moveText = Text(Point(500,50),"Player 2 attacked!") 
                                         hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                if (status[p1sVal]=="defend" and status[p2sVal]=="defend"):
+                        moveText = Text(Point(500,50,"Both failed to block...")).draw(win)
+                        moveText.draw(win)
