@@ -84,6 +84,8 @@ while (True):
         p2WeaponName = ["WoodenSword1.png","StoneSword1.png","IronSword1.png","DiamondSword1.png","Trident1.png"]
         #Players choose their move:
         while (hp1>0 and hp2>0):
+                hp1Text = Text(Point(50,50),"HP: "+str(hp1))
+                hp2Text = Text(Point(950,50),"HP: "+str(hp2))
                 defDet1 = randint(0,1)
                 defDet2 = randint(0,1)
                 turn = None
@@ -156,79 +158,146 @@ while (True):
                 if (speed1>speed2):
                         if (status[p1sVal]=="fight"):
                                 if (status[p2sVal]=="defend" and defDet2==0):
+                                        moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
+                                        moveText.draw(win)
                                         hp1 = hp1-(p1WeaponDMG*p1WMulti)
                                 elif (status[p2sVal]=="defend" and defDet2==1):
-                                        #fail text.....
+                                        failText = Text(Point(500,50),"Player 2 tried to block the attack, but it failed...")
+                                        failText.draw(win)
+                                        win.getMouse()
+                                        moveText = Text(Point(500,50),"Player 1 attacked!")
+                                        moveText.draw(win)
                                         hp2 = hp2-(p1WeaponDMG*p1WMulti)
                                 else:
+                                        moveText = Text(Point(500,50),"Player 1 attacked!")
+                                        moveText.draw(win)
                                         hp2 = hp2-(p1WeaponDMG*p1WMulti)
                 elif (speed2>speed1):
                         if (status[p2sVal]=="fight"):
                                 if (status[p1sVal]=="defend" and defDet1==0):
-                                        hp2 = hp2-(p2WeaponDMG*p2WMulti)
-                                elif (status[p1sVal]=="defend" and defDet1==1):
-                                        #fail text.....
-                                        hp1 = hp1-(p2WeaponDMG*p2WMulti)
-                                else:
-                                        hp1 = hp1-(p1WeaponDMG*p1WMulti)
+                                                moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
+                                                moveText.draw(win)
+                                                hp2 = hp2-(p2WeaponDMG*p2WMulti)
+                                        elif (status[p1sVal]=="defend" and defDet1==1):
+                                                failText = Text(Point(500,50),"Player 1 tried to block the attack, but it failed...")
+                                                failText.draw(win)
+                                                win.getMouse()
+                                                moveText = Text(Point(500,50),"Player 2 attacked!")
+                                                moveText.draw(win)
+                                                hp1 = hp1-(p2WeaponDMG*p2WMulti)
+                                        else:
+                                                moveText = Text(Point(500,50),"Player 2 attacked!")
+                                                moveText.draw(win)
+                                                hp1 = hp1-(p2WeaponDMG*p2WMulti)
                 elif (speed1==speed2):
                         randomTurn = randint(0,1)
                         turn = player[randomTurn]
                         if (turn=="Player 1"):
                                 if (status[p1sVal]=="fight"):
                                         if (status[p2sVal]=="defend" and defDet2==0):
+                                                moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
+                                                moveText.draw(win)
                                                 hp1 = hp1-(p1WeaponDMG*p1WMulti)
                                         elif (status[p2sVal]=="defend" and defDet2==1):
-                                                #fail text.....
+                                                failText = Text(Point(500,50),"Player 2 tried to block the attack, but it failed...")
+                                                failText.draw(win)
+                                                win.getMouse()
+                                                moveText = Text(Point(500,50),"Player 1 attacked!")
+                                                moveText.draw(win)
                                                 hp2 = hp2-(p1WeaponDMG*p1WMulti)
                                         else:
+                                                moveText = Text(Point(500,50),"Player 1 attacked!")
+                                                moveText.draw(win)
                                                 hp2 = hp2-(p1WeaponDMG*p1WMulti)
                         elif (turn=="Player 2"):
                                 if (status[p2sVal]=="fight"):
                                         if (status[p1sVal]=="defend" and defDet1==0):
+                                                moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
+                                                moveText.draw(win)
                                                 hp2 = hp2-(p2WeaponDMG*p2WMulti)
                                         elif (status[p1sVal]=="defend" and defDet1==1):
-                                                #fail text.....
+                                                failText = Text(Point(500,50),"Player 1 tried to block the attack, but it failed...")
+                                                failText.draw(win)
+                                                win.getMouse()
+                                                moveText = Text(Point(500,50),"Player 2 attacked!")
+                                                moveText.draw(win)
                                                 hp1 = hp1-(p2WeaponDMG*p2WMulti)
                                         else:
+                                                moveText = Text(Point(500,50),"Player 2 attacked!")
+                                                moveText.draw(win)
                                                 hp1 = hp1-(p2WeaponDMG*p2WMulti)
                 if (speed1<speed2):
                         if (status[p1sVal]=="fight"):
                                 if (status[p2sVal]=="defend" and defDet2==0):
+                                        moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
+                                        moveText.draw(win)
                                         hp1 = hp1-(p1WeaponDMG*p1WMulti)
                                 elif (status[p2sVal]=="defend" and defDet2==1):
-                                        #fail text.....
+                                        failText = Text(Point(500,50),"Player 2 tried to block the attack, but it failed...")
+                                        failText.draw(win)
+                                        win.getMouse()
+                                        moveText = Text(Point(500,50),"Player 1 attacked!")
+                                        moveText.draw(win)
                                         hp2 = hp2-(p1WeaponDMG*p1WMulti)
                                 else:
+                                        moveText = Text(Point(500,50),"Player 1 attacked!")
+                                        moveText.draw(win)
                                         hp2 = hp2-(p1WeaponDMG*p1WMulti)
                 elif (speed2<speed1):
                         if (status[p2sVal]=="fight"):
                                 if (status[p1sVal]=="defend" and defDet1==0):
+                                        moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
+                                        moveText.draw(win)
                                         hp2 = hp2-(p2WeaponDMG*p2WMulti)
                                 elif (status[p1sVal]=="defend" and defDet1==1):
-                                        #fail text.....
+                                        failText = Text(Point(500,50),"Player 1 tried to block the attack, but it failed...")
+                                        failText.draw(win)
+                                        win.getMouse()
+                                        moveText = Text(Point(500,50),"Player 2 attacked!")
+                                        moveText.draw(win)
                                         hp1 = hp1-(p2WeaponDMG*p2WMulti)
                                 else:
-                                        hp1 = hp1-(p1WeaponDMG*p1WMulti)
+                                        moveText = Text(Point(500,50),"Player 2 attacked!")
+                                        moveText.draw(win)
+                                        hp1 = hp1-(p2WeaponDMG*p2WMulti)
                 elif (turn=="Player 2"):
                         if (status[p1sVal]=="fight"):
                                 if (status[p2sVal]=="defend" and defDet2==0):
+                                        moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
+                                        moveText.draw(win)
                                         hp1 = hp1-(p1WeaponDMG*p1WMulti)
                                 elif (status[p2sVal]=="defend" and defDet2==1):
-                                        #fail text.....
+                                        failText = Text(Point(500,50),"Player 2 tried to block the attack, but it failed...")
+                                        failText.draw(win)
+                                        win.getMouse()
+                                        moveText = Text(Point(500,50),"Player 1 attacked!")
+                                        moveText.draw(win)
                                         hp2 = hp2-(p1WeaponDMG*p1WMulti)
                                 else:
+                                        moveText = Text(Point(500,50),"Player 1 attacked!")
+                                        moveText.draw(win)
                                         hp2 = hp2-(p1WeaponDMG*p1WMulti)
                 elif (turn=="Player 1"):
                         if (status[p2sVal]=="fight"):
                                 if (status[p1sVal]=="defend" and defDet1==0):
+                                        moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
+                                        moveText.draw(win)
                                         hp2 = hp2-(p2WeaponDMG*p2WMulti)
                                 elif (status[p1sVal]=="defend" and defDet1==1):
-                                        #fail text.....
+                                        failText = Text(Point(500,50),"Player 1 tried to block the attack, but it failed...")
+                                        failText.draw(win)
+                                        win.getMouse()
+                                        moveText = Text(Point(500,50),"Player 2 attacked!")
+                                        moveText.draw(win)
                                         hp1 = hp1-(p2WeaponDMG*p2WMulti)
                                 else:
-                                        moveText = Text(Point(500,50),"Player 2 attacked!") 
+                                        moveText = Text(Point(500,50),"Player 2 attacked!")
+                                        moveText.draw(win)
                                         hp1 = hp1-(p2WeaponDMG*p2WMulti)
                 if (status[p1sVal]=="defend" and status[p2sVal]=="defend"):
                         moveText = Text(Point(500,50,"Both failed to block...")).draw(win)
                         moveText.draw(win)
+        #winner/loser/draw
+        if (hp2<=0):
+                winnerText=Text(Point(500,50),"Player 2 has been defeated. Player 1 wins!")
+        
