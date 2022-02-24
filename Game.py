@@ -113,6 +113,10 @@ while (True):
                 p1Defend.draw(win)
                 p1DefendText = Text(Point(200,185),"Deflect?")
                 p1DefendText.draw(win)
+                p1SpeedUp = Rectangle(Point(100,220),Point(300,270))
+                p1SpeedUp.draw(win)
+                p1SpeedUpText = Text(Point(200,245),"Speed Up")
+                p1SpeedUpText.draw(win)
                 while (True):
                         p1Button = win.getMouse()
                         if (p1Button.getX()>=p1Fight.getP1().getX() and p1Button.getX()<=p1Fight.getP2().getX() and p1Button.getY()>=p1Fight.getP1().getY() and p1Button.getY()<=p1Fight.getP2().getY()):
@@ -121,10 +125,15 @@ while (True):
                         elif (p1Button.getX()>=p1Defend.getP1().getX() and p1Button.getX()<=p1Defend.getP2().getX() and p1Button.getY()>=p1Defend.getP1().getY() and p1Button.getY()<=p1Defend.getP2().getY()):
                                 p1sVal = 1
                                 break
+                        elif (p1Button.getX()>=p1SpeedUp.getP1().getX() and p1Button.getX()<=p1SpeedUp.getP2().getX() and p1Button.getY()>=p1SpeedUp.getP1().getY() and p1Button.getY()<=p1SpeedUp.getP2().getY()):
+                                p1sVal = 2
+                                break
                 p1Fight.undraw()
                 p1FightText.undraw()
                 p1Defend.undraw()
                 p1DefendText.undraw()
+                p1SpeedUp.undraw()
+                p1SpeedUpText.undraw()
                 if (p2WeaponName[p2wVal] == "WoodenSword1.png"):
                         p2WeaponDMG = 10
                 elif (p2WeaponName[p2wVal] == "StoneSword1.png"):
@@ -143,6 +152,10 @@ while (True):
                 p2Defend.draw(win)
                 p2DefendText = Text(Point(800,185),"Deflect?")
                 p2DefendText.draw(win)
+                p2SpeedUp = Rectangle(Point(700,220),Point(900,270))
+                p2SpeedUp.draw(win)
+                p2SpeedUpText = Text(Point(800,245),"Deflect?")
+                p2SpeedUpText.draw(win)
                 while (True):
                         p2Button = win.getMouse()
                         if (p2Button.getX()>=p2Fight.getP1().getX() and p2Button.getX()<=p2Fight.getP2().getX() and p2Button.getY()>=p2Fight.getP1().getY() and p2Button.getY()<=p2Fight.getP2().getY()):
