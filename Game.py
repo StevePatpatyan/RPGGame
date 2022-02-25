@@ -75,7 +75,7 @@ while (True):
         resultText.draw(win)
         win.getMouse()
         resultText.undraw()
-        status = ["fight","defend","speed"]
+        status = ["fight","defend","speed","weapon"]
         p1wVal = 0
         p2wVal = 0
         p1WMulti = 1
@@ -117,6 +117,10 @@ while (True):
                 p1SpeedUp.draw(win)
                 p1SpeedUpText = Text(Point(200,245),"Speed Up")
                 p1SpeedUpText.draw(win)
+                p1WeaponUp = Rectangle(Point(100,280),Point(300,330))
+                p1WeaponUp.draw(win)
+                p1WeaponUpText = Text(Point(200,305),"Upgrade Weapon")
+                p1WeaponUpText.draw(win)
                 while (True):
                         p1Button = win.getMouse()
                         if (p1Button.getX()>=p1Fight.getP1().getX() and p1Button.getX()<=p1Fight.getP2().getX() and p1Button.getY()>=p1Fight.getP1().getY() and p1Button.getY()<=p1Fight.getP2().getY()):
@@ -128,12 +132,17 @@ while (True):
                         elif (p1Button.getX()>=p1SpeedUp.getP1().getX() and p1Button.getX()<=p1SpeedUp.getP2().getX() and p1Button.getY()>=p1SpeedUp.getP1().getY() and p1Button.getY()<=p1SpeedUp.getP2().getY()):
                                 p1sVal = 2
                                 break
+                        elif (p1Button.getX()>=p1WeaponUp.getP1().getX() and p1Button.getX()<=p1WeaponUp.getP2().getX() and p1Button.getY()>=p1WeaponUp.getP1().getY() and p1Button.getY()<=p1WeaponUp.getP2().getY()):
+                                p1sVal = 3
+                                break
                 p1Fight.undraw()
                 p1FightText.undraw()
                 p1Defend.undraw()
                 p1DefendText.undraw()
                 p1SpeedUp.undraw()
                 p1SpeedUpText.undraw()
+                p1WeaponUp.undraw()
+                p1WeaponUpText.undraw()
                 if (p2WeaponName[p2wVal] == "WoodenSword1.png"):
                         p2WeaponDMG = 10
                 elif (p2WeaponName[p2wVal] == "StoneSword1.png"):
@@ -156,6 +165,10 @@ while (True):
                 p2SpeedUp.draw(win)
                 p2SpeedUpText = Text(Point(800,245),"Speed Up")
                 p2SpeedUpText.draw(win)
+                p2WeaponUp = Rectangle(Point(700,280),Point(900,330))
+                p2WeaponUp.draw(win)
+                p2WeaponUpText = Text(Point(800,305),"Upgrade Weapon")
+                p2WeaponUpText.draw(win)
                 while (True):
                         p2Button = win.getMouse()
                         if (p2Button.getX()>=p2Fight.getP1().getX() and p2Button.getX()<=p2Fight.getP2().getX() and p2Button.getY()>=p2Fight.getP1().getY() and p2Button.getY()<=p2Fight.getP2().getY()):
@@ -167,12 +180,17 @@ while (True):
                         elif (p2Button.getX()>=p2SpeedUp.getP1().getX() and p2Button.getX()<=p2SpeedUp.getP2().getX() and p2Button.getY()>=p2SpeedUp.getP1().getY() and p2Button.getY()<=p2SpeedUp.getP2().getY()):
                                 p2sVal = 2
                                 break
+                        elif (p2Button.getX()>=p2WeaponUp.getP1().getX() and p2Button.getX()<=p2WeaponUp.getP2().getX() and p2Button.getY()>=p2WeaponUp.getP1().getY() and p2Button.getY()<=p2WeaponUp.getP2().getY()):
+                                p2sVal = 3
+                                break
                 p2Fight.undraw()
                 p2FightText.undraw()
                 p2Defend.undraw()
                 p2DefendText.undraw()
                 p2SpeedUp.undraw()
                 p2SpeedUpText.undraw()
+                p2WeaponUp.undraw()
+                p2WeaponUpText.undraw()
                 #Moves begin:
                 if (speed1>speed2):
                         if (status[p1sVal]=="fight"):
