@@ -75,7 +75,7 @@ while (True):
         resultText.draw(win)
         win.getMouse()
         resultText.undraw()
-        status = ["fight","defend"]
+        status = ["fight","defend","speed"]
         p1wVal = 0
         p2wVal = 0
         p1WMulti = 1
@@ -154,7 +154,7 @@ while (True):
                 p2DefendText.draw(win)
                 p2SpeedUp = Rectangle(Point(700,220),Point(900,270))
                 p2SpeedUp.draw(win)
-                p2SpeedUpText = Text(Point(800,245),"Deflect?")
+                p2SpeedUpText = Text(Point(800,245),"Speed Up")
                 p2SpeedUpText.draw(win)
                 while (True):
                         p2Button = win.getMouse()
@@ -164,10 +164,15 @@ while (True):
                         elif (p2Button.getX()>=p2Defend.getP1().getX() and p2Button.getX()<=p2Defend.getP2().getX() and p2Button.getY()>=p2Defend.getP1().getY() and p2Button.getY()<=p2Defend.getP2().getY()):
                                 p2sVal = 1
                                 break
+                        elif (p2Button.getX()>=p2SpeedUp.getP1().getX() and p2Button.getX()<=p2SpeedUp.getP2().getX() and p2Button.getY()>=p2SpeedUp.getP1().getY() and p2Button.getY()<=p2SpeedUp.getP2().getY()):
+                                p2sVal = 2
+                                break
                 p2Fight.undraw()
                 p2FightText.undraw()
                 p2Defend.undraw()
                 p2DefendText.undraw()
+                p2SpeedUp.undraw()
+                p2SpeedUpText.undraw()
                 #Moves begin:
                 if (speed1>speed2):
                         if (status[p1sVal]=="fight"):
@@ -188,8 +193,16 @@ while (True):
                                         moveText.draw(win)
                                         hp2 = hp2-(p1WeaponDMG*p1WMulti)
                         elif (status[p1sVal]=="defend"):
-                                moveText = Text(Point(500,50),"...")
+                                if (status[p2sVal]=="speed"):
+                                        moveText = Text(Point(500,50),"Player 1 tried to block the attack, but it failed...")
+                                        moveText.draw(win)
+                                else:
+                                        moveText = Text(Point(500,50),"...")
+                                        moveText.draw(win)  
+                        elif (status[p1sVal]=="speed"):
+                                moveText = Text(Point(500,50),"Player 1 increased their speed by 5!")
                                 moveText.draw(win)
+                                speed1 = speed1+5
                 elif (speed2>speed1):
                         if (status[p2sVal]=="fight"):
                                 if (status[p1sVal]=="defend" and defDet1==0):
@@ -209,8 +222,16 @@ while (True):
                                         moveText.draw(win)
                                         hp1 = hp1-(p2WeaponDMG*p2WMulti)
                         elif (status[p2sVal]=="defend"):
-                                moveText = Text(Point(500,50),"...")
+                                if (status[p1sVal]=="speed"):
+                                        moveText = Text(Point(500,50),"Player 2 tried to block the attack, but it failed...")
+                                        moveText.draw(win)
+                                else:
+                                        moveText = Text(Point(500,50),"...")
+                                        moveText.draw(win)
+                        elif (status[p2sVal]=="speed"):
+                                moveText = Text(Point(500,50),"Player 2 increased their speed by 5!")
                                 moveText.draw(win)
+                                speed2 = speed2+5
                 elif (speed1==speed2):
                         randomTurn = randint(0,1)
                         turn = player[randomTurn]
@@ -232,8 +253,16 @@ while (True):
                                                 moveText.draw(win)
                                                 hp2 = hp2-(p1WeaponDMG*p1WMulti)
                                 elif (status[p1sVal]=="defend"):
-                                        moveText = Text(Point(500,50),"...")
+                                        if (status[p2sVal]=="speed"):
+                                                moveText = Text(Point(500,50),"Player 1 tried to block the attack, but it failed...")
+                                                moveText.draw(win)
+                                        else:
+                                                moveText = Text(Point(500,50),"...")
+                                                moveText.draw(win)
+                                elif (status[p1sVal]=="speed"):
+                                        moveText = Text(Point(500,50),"Player 1 increased their speed by 5!")
                                         moveText.draw(win)
+                                        speed1 = speed1+5
                         elif (turn=="Player 2"):
                                 if (status[p2sVal]=="fight"):
                                         if (status[p1sVal]=="defend" and defDet1==0):
@@ -253,8 +282,16 @@ while (True):
                                                 moveText.draw(win)
                                                 hp1 = hp1-(p2WeaponDMG*p2WMulti)
                                 elif (status[p2sVal]=="defend"):
-                                        moveText = Text(Point(500,50),"...")
+                                        if (status[p1sVal]=="speed"):
+                                                moveText = Text(Point(500,50),"Player 2 tried to block the attack, but it failed...")
+                                                moveText.draw(win)
+                                        else:
+                                                moveText = Text(Point(500,50),"...")
+                                                moveText.draw(win)
+                                elif (status[p2sVal]=="speed"):
+                                        moveText = Text(Point(500,50),"Player 2 increased their speed by 5!")
                                         moveText.draw(win)
+                                        speed2 = speed2+5
                 hp1Text.undraw()
                 hp2Text.undraw()
                 hp1Text = Text(Point(50,450),"HP: "+str(hp1))
@@ -296,6 +333,18 @@ while (True):
                         elif (status[p1sVal]=="defend" and status[p2sVal]=="fight"):
                                         moveText = Text(Point(500,50),"...")
                                         moveText.draw(win)
+                        elif (status[p1sVal]=="defend"):
+                                        if (status[p2sVal]=="speed"):
+                                                moveText = Text(Point(500,50),"Player 1 tried to block the attack, but it failed...")
+                                                moveText.draw(win)
+                                        else:
+                                                moveText = Text(Point(500,50),"...")
+                                                moveText.draw(win)
+                                                moveText.undraw()
+                        elif (status[p1sVal]=="speed"):
+                                moveText = Text(Point(500,50),"Player 1 increased their speed by 5!")
+                                moveText.draw(win)
+                                speed1 = speed1+5
                 elif (speed2<speed1):
                         if (status[p2sVal]=="fight"):
                                 if (status[p1sVal]=="defend" and defDet1==0):
@@ -317,6 +366,18 @@ while (True):
                         elif (status[p2sVal]=="defend" and status[p1sVal]=="fight"):
                                         moveText = Text(Point(500,50),"...")
                                         moveText.draw(win)
+                        elif (status[p2sVal]=="defend"):
+                                        if (status[p1sVal]=="speed"):
+                                                moveText = Text(Point(500,50),"Player 2 tried to block the attack, but it failed...")
+                                                moveText.draw(win)
+                                        else:
+                                                moveText = Text(Point(500,50),"...")
+                                                moveText.draw(win)
+                                                moveText.undraw()
+                        elif (status[p2sVal]=="speed"):
+                                moveText = Text(Point(500,50),"Player 2 increased their speed by 5!")
+                                moveText.draw(win)
+                                speed2 = speed2+5
                 elif (turn=="Player 2"):
                         if (status[p1sVal]=="fight"):
                                 if (status[p2sVal]=="defend" and defDet2==0):
@@ -338,6 +399,18 @@ while (True):
                         elif (status[p1sVal]=="defend" and status[p2sVal]=="fight"):
                                         moveText = Text(Point(500,50),"...")
                                         moveText.draw(win)
+                        elif (status[p1sVal]=="defend"):
+                                        if (status[p2sVal]=="speed"):
+                                                moveText = Text(Point(500,50),"Player 1 tried to block the attack, but it failed...")
+                                                moveText.draw(win)
+                                        else:
+                                                moveText = Text(Point(500,50),"...")
+                                                moveText.draw(win)
+                                                moveText.undraw()
+                        elif (status[p1sVal]=="speed"):
+                                moveText = Text(Point(500,50),"Player 1 increased their speed by 5!")
+                                moveText.draw(win)
+                                speed1 = speed1+5
                 elif (turn=="Player 1"):
                         if (status[p2sVal]=="fight"):
                                 if (status[p1sVal]=="defend" and defDet1==0):
@@ -359,6 +432,18 @@ while (True):
                         elif (status[p2sVal]=="defend" and status[p1sVal]=="fight"):
                                         moveText = Text(Point(500,50),"...")
                                         moveText.draw(win)
+                        elif (status[p2sVal]=="defend"):
+                                        if (status[p1sVal]=="speed"):
+                                                moveText = Text(Point(500,50),"Player 2 tried to block the attack, but it failed...")
+                                                moveText.draw(win)
+                                        else:
+                                                moveText = Text(Point(500,50),"...")
+                                                moveText.draw(win)
+                                                moveText.undraw()
+                        elif (status[p2sVal]=="speed"):
+                                moveText = Text(Point(500,50),"Player 2 increased their speed by 5!")
+                                moveText.draw(win)
+                                speed2 = speed2+5
                 if (status[p1sVal]=="defend" and status[p2sVal]=="defend"):
                         moveText = Text(Point(500,50),"Both failed to block...")
                         moveText.draw(win)
