@@ -384,14 +384,26 @@ while (True):
                 if (hp2<=0 and hp1<=0):
                         winnerText=Text(Point(500,50),"Both of the homies dead. Damn...")
                         winnerText.draw(win)
+                        p1.undraw()
+                        p1 = Person(400,400,20,50,25,25,"x","|")
+                        p1.draw(win)
+                        p2.undraw()
+                        p2 = Person(600,400,20,50,25,25,"x","/")
+                        p2.draw(win)
                         break
                 elif (hp2<=0):
                         winnerText=Text(Point(500,50),"Player 2 has been defeated. Player 1 wins!")
                         winnerText.draw(win)
+                        p2.undraw()
+                        p2 = Person(600,400,20,50,25,25,"x","/")
+                        p2.draw(win)
                         break
                 elif (hp1<=0):
                         winnerText=Text(Point(500,50),"Player 1 has been defeated. Player 2 wins!")
                         winnerText.draw(win)
+                        p1.undraw()
+                        p1 = Person(400,400,20,50,25,25,"x","|")
+                        p1.draw(win)
                         break
                 if (speed1<speed2):
                         if (p1wCharge==0):
@@ -584,14 +596,26 @@ while (True):
                 if (hp2<=0 and hp1<=0):
                         winnerText=Text(Point(500,50),"Both of the homies dead. Damn...")
                         winnerText.draw(win)
+                        p1.undraw()
+                        p1 = Person(400,400,20,50,25,25,"x","|")
+                        p1.draw(win)
+                        p2.undraw()
+                        p2 = Person(600,400,20,50,25,25,"x","/")
+                        p2.draw(win)
                         break
                 elif (hp2<=0):
                         winnerText=Text(Point(500,50),"Player 2 has been defeated. Player 1 wins!")
                         winnerText.draw(win)
+                        p2.undraw()
+                        p2 = Person(600,400,20,50,25,25,"x","/")
+                        p2.draw(win)
                         break
                 elif (hp1<=0):
                         winnerText=Text(Point(500,50),"Player 1 has been defeated. Player 2 wins!")
                         winnerText.draw(win)
+                        p1.undraw()
+                        p1 = Person(400,400,20,50,25,25,"x","|")
+                        p1.draw(win)
                         break
                 if (p1wCharge!=0):
                         p1wCharge = p1wCharge+1
@@ -622,4 +646,8 @@ while (True):
         hp1Text.undraw()
         hp2Text.undraw()
         winnerText.undraw()
+        p1Weapon.undraw()
+        p2Weapon.undraw()
+        p1.undraw()
+        p2.undraw()
         

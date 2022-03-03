@@ -34,6 +34,12 @@ class Person:
     elif (brows == "/"):
       self.brow1 = Line(Point(x-(headRadius/2)-(0.4*headRadius)*0.7,y-(headRadius/2)-(0.1*headRadius)-((0.4*headRadius)*0.7)),Point(x-(headRadius/2)+(0.1*headRadius),y-(headRadius/2)-(0.1*headRadius)))
       self.brow2 = Line(Point(x+(headRadius/2)+(0.4*headRadius)*0.7,y-(headRadius/2)-((0.4*headRadius)*0.7)-(0.1*headRadius)),Point(x+(headRadius/2)-(0.1*headRadius),y-(headRadius/2)-(0.1*headRadius)))
+    elif (face=="x"):
+      self.eye1 = Text(Point(x-(headRadius/2),y-(headRadius/2)),"x")
+      self.eye2 = Text(Point(x+(headRadius/2),y-(headRadius/2)),"x")
+      self.mouth = Line(Point(x-(headRadius/2),y+(headRadius/2)),Point(x+(headRadius/2),y+(headRadius/2)))
+      self.tongue = Text(Point(x-(headRadius/4),y+(headRadius/2)+6),"U")
+      self.face = "x"
     #eyelashes?
     else:
       self.brows=0
@@ -48,6 +54,8 @@ class Person:
       self.eye1.draw(window)
       self.eye2.draw(window)
       self.mouth.draw(window)
+      if (self.face=="x"):
+        self.tongue.draw(window)
     if(self.brows!=0):
       self.brow1.draw(window)
       self.brow2.draw(window)
@@ -62,6 +70,8 @@ class Person:
       self.eye1.undraw()
       self.eye2.undraw()
       self.mouth.undraw()
+      if (self.face=="x"):
+        self.tongue.undraw()
     if(self.brows!=0):
       self.brow1.undraw()
       self.brow2.undraw()
@@ -80,14 +90,16 @@ class Person:
       self.eye1.move(dx,dy)
       self.eye2.move(dx,dy)
       self.mouth.move(dx,dy)
+      if (self.face=="x"):
+        self.tongue.draw(window)
     if (self.brows!=0):
       self.brow1.move(dx,dy)
       self.brow2.move(dx,dy)
   #def setFace()
     
-#win = GraphWin("person",500,500)
-#person1 = Person(50,100,20,20,10,10,":|","/")
-#person2 = Person(100,200,10,20,10,10)
-#person1.move(100,0)
-#person1.draw(win)
-#print(person1.getLength())
+win = GraphWin("person",500,500)
+person1 = Person(50,100,20,20,10,10,":|","/")
+person2 = Person(100,200,10,20,10,10)
+person1.move(100,0)
+person1.draw(win)
+print(person1.getLength())
