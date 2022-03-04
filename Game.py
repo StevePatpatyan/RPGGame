@@ -93,7 +93,75 @@ while (True):
         p2wCharge = 0
         p1aCharge = 0
         p2aCharge = 0
-        
+        #Players choose abilities:
+        powerStatus = ["hp","attack","deflect"]
+        powerText = Text(Point(500,50),"Player 1, choose your power.")
+        hpPower = Rectangle(Point(400,75),Point(600,125))
+        attkPower = Rectangle(Point(400,150),Point(600,200))
+        deflPower = Rectangle(Point(400,225),Point(600,275))
+        hpPowerText = Text(Point(500,100),"HP Boost + 50")
+        attkPowerText = Text(Point(500,175),"Power Boost x1.5")
+        deflPowerText = Text(Point(500,250),"Deflect Chance Up")
+        powerText.draw(win)
+        hpPower.draw(win)
+        attkPower.draw(win)
+        deflPower.draw(win)
+        hpPowerText.draw(win)
+        attkPowerText.draw(win)
+        deflPowerText.draw(win)
+        while (True):
+                p1Button = win.getMouse()
+                if (p1Button.getX()>=hpPower.getP1().getX() and p1Button.getX()<=hpPower.getP2().getX() and p1Button.getY()>=hpPower.getP1().getY() and p1Button.getY()<=hpPower.getP2().getY()):
+                        p1aVal = 0
+                        break
+                elif (p1Button.getX()>=attkPower.getP1().getX() and p1Button.getX()<=attkPower.getP2().getX() and p1Button.getY()>=attkPower.getP1().getY() and p1Button.getY()<=attkPower.getP2().getY()):
+                        p1aVal = 1
+                        break
+                elif (p1Button.getX()>=deflPower.getP1().getX() and p1Button.getX()<=deflPower.getP2().getX() and p1Button.getY()>=deflPower.getP1().getY() and p1Button.getY()<=deflPower.getP2().getY()):
+                        p1aVal = 2
+                        break
+        powerText.undraw()
+        hpPower.undraw()
+        attkPower.undraw()
+        deflPower.undraw()
+        hpPowerText.undraw()
+        attkPowerText.undraw()
+        deflPowerText.undraw()
+        time.sleep(0.5)
+        powerText = powerText = Text(Point(500,50),"Player 2, choose your power.")
+        powerText.draw(win)
+        hpPower.draw(win)
+        attkPower.draw(win)
+        deflPower.draw(win)
+        hpPowerText.draw(win)
+        attkPowerText.draw(win)
+        deflPowerText.draw(win)
+        while (True):
+                p2Button = win.getMouse()
+                if (p2Button.getX()>=hpPower.getP1().getX() and p2Button.getX()<=hpPower.getP2().getX() and p2Button.getY()>=hpPower.getP1().getY() and p2Button.getY()<=hpPower.getP2().getY()):
+                        p2aVal = 0
+                        break
+                elif (p2Button.getX()>=attkPower.getP1().getX() and p2Button.getX()<=attkPower.getP2().getX() and p2Button.getY()>=attkPower.getP1().getY() and p2Button.getY()<=attkPower.getP2().getY()):
+                        p2aVal = 1
+                        break
+                elif (p2Button.getX()>=deflPower.getP1().getX() and p2Button.getX()<=deflPower.getP2().getX() and p2Button.getY()>=deflPower.getP1().getY() and p2Button.getY()<=deflPower.getP2().getY()):
+                        p2aVal = 2
+                        break
+        powerText.undraw()
+        hpPower.undraw()
+        attkPower.undraw()
+        deflPower.undraw()
+        hpPowerText.undraw()
+        attkPowerText.undraw()
+        deflPowerText.undraw()
+        if (powerStatus[p1aVal] == "hp"):
+                hp1 = 150
+        elif (powerStatus[p1aVal] == "attack"):
+                p1WMulti = 1.5
+        if (powerStatus[p2aVal] == "hp"):
+                hp2 = 150
+        elif (powerStatus[p2aVal] == "attack"):
+                p2WMulti = 1.5
         p1WeaponName = ["WoodenSword.png","StoneSword.png","IronSword.png","DiamondSword.png","Trident.png"]
         p2WeaponName = ["WoodenSword1.png","StoneSword1.png","IronSword1.png","DiamondSword1.png","Trident1.png"]
         #p1ArmorName = ["Leather.png"]
@@ -103,8 +171,14 @@ while (True):
         hp2Text.draw(win)
         #Players choose their move:
         while (hp1>0 and hp2>0):
-                defDet1 = randint(0,1)
-                defDet2 = randint(0,1)
+                if (powerStatus[p1aVal]=="deflect"):
+                        defDet1 = randint(0,2)
+                else:
+                        defDet1 = randint(0,1)
+                if (powerStatus[p2aVal]=="deflect"):
+                        defDet2 = randint(0,2)
+                else:
+                        defDet2 = randint(0,1)
                 turn = None
                 if (p1WeaponName[p1wVal] == "WoodenSword.png"):
                         p1WeaponDMG = 5
@@ -210,7 +284,7 @@ while (True):
                 if (speed1>speed2):
                         if (p1wCharge==0):
                                 if (status[p1sVal]=="fight"):
-                                        if (status[p2sVal]=="defend" and defDet2==0):
+                                        if (status[p2sVal]=="defend" and defDet2==0 or defDet2==2):
                                                 moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
                                                 moveText.draw(win)
                                                 hp1 = hp1-(p1WeaponDMG*p1WMulti)
@@ -251,7 +325,7 @@ while (True):
                 elif (speed2>speed1):
                         if (p2wCharge==0):
                                 if (status[p2sVal]=="fight"):
-                                        if (status[p1sVal]=="defend" and defDet1==0):
+                                        if (status[p1sVal]=="defend" and defDet1==0 or defDet1==2):
                                                  moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
                                                  moveText.draw(win)
                                                  hp2 = hp2-(p2WeaponDMG*p2WMulti)
@@ -295,7 +369,7 @@ while (True):
                         if (turn=="Player 1"):
                                 if (p1wCharge==0):
                                         if (status[p1sVal]=="fight"):
-                                                if (status[p2sVal]=="defend" and defDet2==0):
+                                                if (status[p2sVal]=="defend" and defDet2==0 or defDet2==2):
                                                         moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
                                                         moveText.draw(win)
                                                         hp1 = hp1-(p1WeaponDMG*p1WMulti)
@@ -335,7 +409,7 @@ while (True):
                         elif (turn=="Player 2"):
                                 if (p2wCharge==0):
                                         if (status[p2sVal]=="fight"):
-                                                if (status[p1sVal]=="defend" and defDet1==0):
+                                                if (status[p1sVal]=="defend" and defDet1==0 or defDet1==2):
                                                         moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
                                                         moveText.draw(win)
                                                         hp2 = hp2-(p2WeaponDMG*p2WMulti)
@@ -454,7 +528,7 @@ while (True):
                 elif (speed2<speed1):
                         if (p2wCharge==0):
                                 if (status[p2sVal]=="fight"):
-                                        if (status[p1sVal]=="defend" and defDet1==0):
+                                        if (status[p1sVal]=="defend" and defDet1==0 or defDet1==2):
                                                 moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
                                                 moveText.draw(win)
                                                 hp2 = hp2-(p2WeaponDMG*p2WMulti)
@@ -499,7 +573,7 @@ while (True):
                 elif (turn=="Player 2"):
                         if (p1wCharge==0):
                                 if (status[p1sVal]=="fight"):
-                                        if (status[p2sVal]=="defend" and defDet2==0):
+                                        if (status[p2sVal]=="defend" and defDet2==0 or defDet2==2):
                                                 moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
                                                 moveText.draw(win)
                                                 hp1 = hp1-(p1WeaponDMG*p1WMulti)
@@ -544,7 +618,7 @@ while (True):
                 elif (turn=="Player 1"):
                         if (p2wCharge==0):
                                 if (status[p2sVal]=="fight"):
-                                        if (status[p1sVal]=="defend" and defDet1==0):
+                                        if (status[p1sVal]=="defend" and defDet1==0 or defDet1==2):
                                                 moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
                                                 moveText.draw(win)
                                                 hp2 = hp2-(p2WeaponDMG*p2WMulti)

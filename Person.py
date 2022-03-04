@@ -26,6 +26,12 @@ class Person:
       self.eye1 = Point(x-(headRadius/2),y-(headRadius/2))
       self.eye2 = Point(x+(headRadius/2),y-(headRadius/2))
       self.mouth = Line(Point(x-(headRadius/2),y+(headRadius/2)),Point(x+(headRadius/2),y+(headRadius/2)))
+    elif (face=="x"):
+      self.eye1 = Text(Point(x-(headRadius/2),y-(headRadius/2)),"x")
+      self.eye2 = Text(Point(x+(headRadius/2),y-(headRadius/2)),"x")
+      self.mouth = Line(Point(x-(headRadius/2),y+(headRadius/2)),Point(x+(headRadius/2),y+(headRadius/2)))
+      self.tongue = Text(Point(x-(headRadius/4),y+(headRadius/2)+6),"U")
+      self.face = "x"
     else:
       self.face=0
     if (brows == "|"):
@@ -34,12 +40,6 @@ class Person:
     elif (brows == "/"):
       self.brow1 = Line(Point(x-(headRadius/2)-(0.4*headRadius)*0.7,y-(headRadius/2)-(0.1*headRadius)-((0.4*headRadius)*0.7)),Point(x-(headRadius/2)+(0.1*headRadius),y-(headRadius/2)-(0.1*headRadius)))
       self.brow2 = Line(Point(x+(headRadius/2)+(0.4*headRadius)*0.7,y-(headRadius/2)-((0.4*headRadius)*0.7)-(0.1*headRadius)),Point(x+(headRadius/2)-(0.1*headRadius),y-(headRadius/2)-(0.1*headRadius)))
-    elif (face=="x"):
-      self.eye1 = Text(Point(x-(headRadius/2),y-(headRadius/2)),"x")
-      self.eye2 = Text(Point(x+(headRadius/2),y-(headRadius/2)),"x")
-      self.mouth = Line(Point(x-(headRadius/2),y+(headRadius/2)),Point(x+(headRadius/2),y+(headRadius/2)))
-      self.tongue = Text(Point(x-(headRadius/4),y+(headRadius/2)+6),"U")
-      self.face = "x"
     #eyelashes?
     else:
       self.brows=0
@@ -97,9 +97,9 @@ class Person:
       self.brow2.move(dx,dy)
   #def setFace()
     
-win = GraphWin("person",500,500)
-person1 = Person(50,100,20,20,10,10,":|","/")
-person2 = Person(100,200,10,20,10,10)
-person1.move(100,0)
-person1.draw(win)
-print(person1.getLength())
+#win = GraphWin("person",500,500)
+#person1 = Person(50,100,20,20,10,10,":|","/")
+#person2 = Person(100,200,10,20,10,10)
+#person1.move(100,0)
+#person1.draw(win)
+#print(person1.getLength())
