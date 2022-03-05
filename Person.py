@@ -91,16 +91,15 @@ class Person:
       self.eye2.move(dx,dy)
       self.mouth.move(dx,dy)
       if (self.face=="x"):
-        self.tongue.move(dx,dy)
+        self.tongue.draw(window)
     if (self.brows!=0):
       self.brow1.move(dx,dy)
       self.brow2.move(dx,dy)
   #def setFace()
-"""    
-win = GraphWin("person",500,500)
-person1 = Person(50,100,20,20,10,10,"x","/")
-person2 = Person(100,200,10,20,10,10)
-person1.move(100,0)
-person1.draw(win)
-print(person1.getLength())
-"""
+    
+#win = GraphWin("person",500,500)
+#person1 = Person(50,100,20,20,10,10,":|","/")
+#person2 = Person(100,200,10,20,10,10)
+#person1.move(100,0)
+#person1.draw(win)
+#print(person1.getLength())
