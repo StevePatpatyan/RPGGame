@@ -1,6 +1,7 @@
 from graphics import*
 from Person import*
 from random import*
+#import playsound
 #Start Screen:
 win = GraphWin("RPG GAME",1000,500)
 win.setBackground("black")
@@ -41,8 +42,10 @@ while (True):
         p2Weapon = Image(Point(559,427),p2WeaponName)
         p2Weapon.draw(win)
         player = ["Player 1","Player 2"]
-        hp1 = 100
-        hp2 = 100
+        hp1 = float(100)
+        hp2 = float(100)
+        hp1Full = hp1
+        hp2Full = hp2
         speed1 = 0
         speed2 = 0
         #coin flip to determine who gets priority:
@@ -155,20 +158,44 @@ while (True):
         attkPowerText.undraw()
         deflPowerText.undraw()
         if (powerStatus[p1aVal] == "hp"):
-                hp1 = 150
+                hp1 = float(150)
+                hp1Full = hp1
         elif (powerStatus[p1aVal] == "attack"):
                 p1WMulti = 1.5
         if (powerStatus[p2aVal] == "hp"):
-                hp2 = 150
+                hp2 = float(150)
+                hp2Full = hp2
         elif (powerStatus[p2aVal] == "attack"):
                 p2WMulti = 1.5
         p1WeaponName = ["WoodenSword.png","StoneSword.png","IronSword.png","DiamondSword.png","Trident.png"]
         p2WeaponName = ["WoodenSword1.png","StoneSword1.png","IronSword1.png","DiamondSword1.png","Trident1.png"]
         #p1ArmorName = ["Leather.png"]
-        hp1Text = Text(Point(50,450),"HP: "+str(hp1))
-        hp2Text = Text(Point(950,450),"HP: "+str(hp2))
+        hp1Text = Text(Point(50,425),"HP: "+str(hp1))
+        if (hp1<=0):
+                hp1BarFilled = Rectangle(Point(5,450),Point(5,475))
+        else:
+                hp1BarFilled = Rectangle(Point(5,450),Point(5+(50*(hp1/hp1Full)),475))
+        if (hp1/hp1Full<=0.2):
+                hp1BarFilled.setFill("red")
+        else:
+                hp1BarFilled.setFill("light green")
+        hp1BarEmpty = Rectangle(Point(5,450),Point(55,475))
+        hp2Text = Text(Point(950,425),"HP: "+str(hp2))
+        if (hp2<=0):
+                hp2BarFilled = Rectangle(Point(945,450),Point(945,475))
+        else:
+                hp2BarFilled = Rectangle(Point(945,450),Point(945+(50*(hp2/hp2Full)),475))
+        if (hp2/hp2Full<=0.2):
+                hp2BarFilled.setFill("red")
+        else:
+                hp2BarFilled.setFill("light green")
+        hp2BarEmpty = Rectangle(Point(945,450),Point(995,475))
         hp1Text.draw(win)
+        hp1BarFilled.draw(win)
+        hp1BarEmpty.draw(win)
         hp2Text.draw(win)
+        hp2BarFilled.draw(win)
+        hp2BarEmpty.draw(win)
         #Players choose their move:
         while (hp1>0 and hp2>0):
                 if (powerStatus[p1aVal]=="deflect"):
@@ -284,7 +311,7 @@ while (True):
                 if (speed1>speed2):
                         if (p1wCharge==0):
                                 if (status[p1sVal]=="fight"):
-                                        if (status[p2sVal]=="defend" and defDet2==0 or defDet2==2):
+                                        if (status[p2sVal]=="defend" and defDet2==0 or status[p2sVal]=="defend" and defDet2==2):
                                                 moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
                                                 moveText.draw(win)
                                                 hp1 = hp1-(p1WeaponDMG*p1WMulti)
@@ -325,7 +352,7 @@ while (True):
                 elif (speed2>speed1):
                         if (p2wCharge==0):
                                 if (status[p2sVal]=="fight"):
-                                        if (status[p1sVal]=="defend" and defDet1==0 or defDet1==2):
+                                        if (status[p1sVal]=="defend" and defDet1==0 or status[p2sVal]=="defend" and defDet1==2):
                                                  moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
                                                  moveText.draw(win)
                                                  hp2 = hp2-(p2WeaponDMG*p2WMulti)
@@ -369,7 +396,7 @@ while (True):
                         if (turn=="Player 1"):
                                 if (p1wCharge==0):
                                         if (status[p1sVal]=="fight"):
-                                                if (status[p2sVal]=="defend" and defDet2==0 or defDet2==2):
+                                                if (status[p2sVal]=="defend" and defDet2==0 or status[p2sVal]=="defend" and defDet2==2):
                                                         moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
                                                         moveText.draw(win)
                                                         hp1 = hp1-(p1WeaponDMG*p1WMulti)
@@ -409,7 +436,7 @@ while (True):
                         elif (turn=="Player 2"):
                                 if (p2wCharge==0):
                                         if (status[p2sVal]=="fight"):
-                                                if (status[p1sVal]=="defend" and defDet1==0 or defDet1==2):
+                                                if (status[p1sVal]=="defend" and defDet1==0 or status[p1sVal]=="defend" and defDet1==2):
                                                         moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
                                                         moveText.draw(win)
                                                         hp2 = hp2-(p2WeaponDMG*p2WMulti)
@@ -448,11 +475,35 @@ while (True):
                                         moveText = Text(Point(500,50),"Player 2 is charging their weapon...")
                                         moveText.draw(win)
                 hp1Text.undraw()
+                hp1BarFilled.undraw()
                 hp2Text.undraw()
-                hp1Text = Text(Point(50,450),"HP: "+str(hp1))
-                hp2Text = Text(Point(950,450),"HP: "+str(hp2))
+                hp2BarFilled.undraw()
+                if (hp1<=0):
+                        hp1=0
+                if (hp2<=0):
+                    hp2=0
+                hp1Text = Text(Point(50,425),"HP: "+str(hp1))
+                if (hp1<=0):
+                        hp1BarFilled = Rectangle(Point(5,450),Point(5,475))
+                else:
+                        hp1BarFilled = Rectangle(Point(5,450),Point(5+(50*(hp1/hp1Full)),475))
+                if (hp1/hp1Full<=0.2):
+                        hp1BarFilled.setFill("red")
+                else:
+                        hp1BarFilled.setFill("light green")
+                hp2Text = Text(Point(950,425),"HP: "+str(hp2))
+                if (hp2<=0):
+                        hp2BarFilled = Rectangle(Point(945,450),Point(945,475))
+                else:
+                        hp2BarFilled = Rectangle(Point(945,450),Point(945+(50*(hp2/hp2Full)),475))
+                if (hp2/hp2Full<=0.2):
+                        hp2BarFilled.setFill("red")
+                else:
+                        hp2BarFilled.setFill("light green")
                 hp1Text.draw(win)
+                hp1BarFilled.draw(win)
                 hp2Text.draw(win)
+                hp2BarFilled.draw(win)
                 win.getMouse()
                 moveText.undraw()
                 if (hp2<=0 and hp1<=0):
@@ -482,7 +533,7 @@ while (True):
                 if (speed1<speed2):
                         if (p1wCharge==0):
                                 if (status[p1sVal]=="fight"):
-                                        if (status[p2sVal]=="defend" and defDet2==0):
+                                        if (status[p2sVal]=="defend" and status[p2sVal]=="defend" and defDet2==0):
                                                 moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
                                                 moveText.draw(win)
                                                 hp1 = hp1-(p1WeaponDMG*p1WMulti)
@@ -528,7 +579,7 @@ while (True):
                 elif (speed2<speed1):
                         if (p2wCharge==0):
                                 if (status[p2sVal]=="fight"):
-                                        if (status[p1sVal]=="defend" and defDet1==0 or defDet1==2):
+                                        if (status[p1sVal]=="defend" and defDet1==0 or status[p1sVal]=="defend" and defDet1==2):
                                                 moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
                                                 moveText.draw(win)
                                                 hp2 = hp2-(p2WeaponDMG*p2WMulti)
@@ -573,7 +624,7 @@ while (True):
                 elif (turn=="Player 2"):
                         if (p1wCharge==0):
                                 if (status[p1sVal]=="fight"):
-                                        if (status[p2sVal]=="defend" and defDet2==0 or defDet2==2):
+                                        if (status[p2sVal]=="defend" and defDet2==0 or status[p2sVal]=="defend" and defDet2==2):
                                                 moveText = Text(Point(500,50),"Player 1's attack was deflected back!")
                                                 moveText.draw(win)
                                                 hp1 = hp1-(p1WeaponDMG*p1WMulti)
@@ -618,7 +669,7 @@ while (True):
                 elif (turn=="Player 1"):
                         if (p2wCharge==0):
                                 if (status[p2sVal]=="fight"):
-                                        if (status[p1sVal]=="defend" and defDet1==0 or defDet1==2):
+                                        if (status[p1sVal]=="defend" and defDet1==0 or status[p1sVal]=="defend" and defDet1==2):
                                                 moveText = Text(Point(500,50),"Player 2's attack was deflected back!")
                                                 moveText.draw(win)
                                                 hp2 = hp2-(p2WeaponDMG*p2WMulti)
@@ -660,11 +711,35 @@ while (True):
                         moveText = Text(Point(500,50),"Both failed to block...")
                         moveText.draw(win)
                 hp1Text.undraw()
+                hp1BarFilled.undraw()
                 hp2Text.undraw()
-                hp1Text = Text(Point(50,450),"HP: "+str(hp1))
-                hp2Text = Text(Point(950,450),"HP: "+str(hp2))
+                hp2BarFilled.undraw()
+                if (hp1<=0):
+                        hp1=0
+                if (hp2<=0):
+                    hp2=0
+                hp1Text = Text(Point(50,425),"HP: "+str(hp1))
+                if (hp1<=0):
+                        hp1BarFilled = Rectangle(Point(5,450),Point(5,475))
+                else:
+                        hp1BarFilled = Rectangle(Point(5,450),Point(5+(50*(hp1/hp1Full)),475))
+                if (hp1/hp1Full<=0.2):
+                        hp1BarFilled.setFill("red")
+                else:
+                        hp1BarFilled.setFill("light green")
+                hp2Text = Text(Point(950,425),"HP: "+str(hp2))
+                if (hp2<=0):
+                        hp2BarFilled = Rectangle(Point(945,450),Point(945,475))
+                else:
+                        hp2BarFilled = Rectangle(Point(945,450),Point(945+(50*(hp2/hp2Full)),475))
+                if (hp2/hp2Full<=0.2):
+                        hp2BarFilled.setFill("red")
+                else:
+                        hp2BarFilled.setFill("light green")
                 hp1Text.draw(win)
+                hp1BarFilled.draw(win)
                 hp2Text.draw(win)
+                hp2BarFilled.draw(win)
                 win.getMouse()
                 moveText.undraw()
                 if (hp2<=0 and hp1<=0):
@@ -718,7 +793,11 @@ while (True):
         #winner/loser/draw
         win.getMouse()
         hp1Text.undraw()
+        hp1BarFilled.undraw()
+        hp1BarEmpty.undraw()
         hp2Text.undraw()
+        hp2BarFilled.undraw()
+        hp2BarEmpty.undraw()
         winnerText.undraw()
         p1Weapon.undraw()
         p2Weapon.undraw()
