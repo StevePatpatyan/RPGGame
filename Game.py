@@ -28,6 +28,40 @@ while (True):
                 elif (introButton.getX()>=close.getP1().getX() and introButton.getX()<=close.getP2().getX() and introButton.getY()>=close.getP1().getY() and introButton.getY()<=close.getP2().getY()):
                         win.close()
                         break
+        #Sign in/log in
+        signIn = Rectangle(Point(400,100),Point(600,200))
+        signInText = Text(Point(500,150),"Register Username")
+        logIn = Rectangle(Point(400,225),Point(600,325))
+        logInText = Text(Point(500,275),"Log In As Existing User")
+        signIn.draw(win)
+        signInText.draw(win)
+        logIn.draw(win)
+        logInText.draw(win)
+        while (True):
+                logButton = win.getMouse()
+                if (logButton.getX()>=signIn.getP1().getX() and logButton.getX()<=signIn.getP2().getX() and logButton.getY()>=signIn.getP1().getY() and logButton.getY()<=signIn.getP2().getY()):
+                        logVal = 0
+                        break
+                elif (logButton.getX()>=logIn.getP1().getX() and logButton.getX()<=logIn.getP2().getX() and logButton.getY()>=logIn.getP1().getY() and logButton.getY()<=logIn.getP2().getY()):
+                        logVal = 1
+                        break
+        signIn.undraw()
+        signInText.undraw()
+        logIn.undraw()
+        logInText.undraw()
+        logTextStatus = ["Register As A New Player:","Log In As Existing User:"]
+        logText = Text(Point(500,50),logTextStatus[logVal])
+        userEnter = Entry(Point(500,200),50)
+        userEnterText = Text(Point(500,175),"Username:")
+        passEnter = Entry(Point(500,300),50)
+        passEnterText = Text(Point(500,275),"Password:")
+        logText.draw(win)
+        userEnter.draw(win)
+        userEnterText.draw(win)
+        passEnter.draw(win)
+        passEnterText.draw(win)
+        while (True):
+                userButton = win.getMouse()
         p1 = Person(400,400,20,50,25,25,":|","|")
         p1.draw(win)
         p2 = Person(600,400,20,50,25,25,":|","/")
