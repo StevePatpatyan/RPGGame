@@ -29,9 +29,8 @@ while (True):
                         win.close()
                         break
         #Sign in/log in
-        data = []
-        file = open("data.txt").readlines()
-        print(file)
+        userFile = open("userdata.txt").read().split("\n")
+        passFile = open("passdata.txt").read().split("\n")
         signIn = Rectangle(Point(400,100),Point(600,200))
         signInText = Text(Point(500,150),"Register Username")
         logIn = Rectangle(Point(400,225),Point(600,325))
@@ -67,11 +66,18 @@ while (True):
         passEnterText.draw(win)
         confirmLog.draw(win)
         confirmLogText.draw(win)
+        errorText = 0
         if (logVal==0):
                 while (True):
                         userButton = win.getMouse()
-                        #if (userButton.getX()>=confirmLog.getP1().getX() and userButton.getX()<=confirmLog.getP2().getX() and userButton.getY()>=confirmLog.getP1().getY() and userButton.getY()<=confirmLog.getP2().getY()):                      
-                                
+                        if (userButton.getX()>=confirmLog.getP1().getX() and userButton.getX()<=confirmLog.getP2().getX() and userButton.getY()>=confirmLog.getP1().getY() and userButton.getY()<=confirmLog.getP2().getY()):                      
+                                for users in userFile:
+                                        if (logVal==0 and userEnter.getText()==users):
+                                                if (errorText!=0):
+                                                        errorText.undraw()
+                                                errorText = Text(Point(500,475),"Username already registered")
+                                                errorText.draw(win)
+                                                break
         p1 = Person(400,400,20,50,25,25,":|","|")
         p1.draw(win)
         p2 = Person(600,400,20,50,25,25,":|","/")
