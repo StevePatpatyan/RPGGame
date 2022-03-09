@@ -29,6 +29,9 @@ while (True):
                         win.close()
                         break
         #Sign in/log in
+        data = []
+        file = open("data.txt").readlines()
+        print(file)
         signIn = Rectangle(Point(400,100),Point(600,200))
         signInText = Text(Point(500,150),"Register Username")
         logIn = Rectangle(Point(400,225),Point(600,325))
@@ -55,13 +58,20 @@ while (True):
         userEnterText = Text(Point(500,175),"Username:")
         passEnter = Entry(Point(500,300),50)
         passEnterText = Text(Point(500,275),"Password:")
+        confirmLog = Rectangle(Point(400,350),Point(600,450))
+        confirmLogText = Text(Point(500,400),"Confirm")
         logText.draw(win)
         userEnter.draw(win)
         userEnterText.draw(win)
         passEnter.draw(win)
         passEnterText.draw(win)
-        while (True):
-                userButton = win.getMouse()
+        confirmLog.draw(win)
+        confirmLogText.draw(win)
+        if (logVal==0):
+                while (True):
+                        userButton = win.getMouse()
+                        #if (userButton.getX()>=confirmLog.getP1().getX() and userButton.getX()<=confirmLog.getP2().getX() and userButton.getY()>=confirmLog.getP1().getY() and userButton.getY()<=confirmLog.getP2().getY()):                      
+                                
         p1 = Person(400,400,20,50,25,25,":|","|")
         p1.draw(win)
         p2 = Person(600,400,20,50,25,25,":|","/")
