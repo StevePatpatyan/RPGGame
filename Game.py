@@ -29,55 +29,92 @@ while (True):
                         win.close()
                         break
         #Sign in/log in
-        userFile = open("userdata.txt").read().split("\n")
-        passFile = open("passdata.txt").read().split("\n")
-        signIn = Rectangle(Point(400,100),Point(600,200))
-        signInText = Text(Point(500,150),"Register Username")
-        logIn = Rectangle(Point(400,225),Point(600,325))
-        logInText = Text(Point(500,275),"Log In As Existing User")
-        signIn.draw(win)
-        signInText.draw(win)
-        logIn.draw(win)
-        logInText.draw(win)
         while (True):
-                logButton = win.getMouse()
-                if (logButton.getX()>=signIn.getP1().getX() and logButton.getX()<=signIn.getP2().getX() and logButton.getY()>=signIn.getP1().getY() and logButton.getY()<=signIn.getP2().getY()):
-                        logVal = 0
-                        break
-                elif (logButton.getX()>=logIn.getP1().getX() and logButton.getX()<=logIn.getP2().getX() and logButton.getY()>=logIn.getP1().getY() and logButton.getY()<=logIn.getP2().getY()):
-                        logVal = 1
-                        break
-        signIn.undraw()
-        signInText.undraw()
-        logIn.undraw()
-        logInText.undraw()
-        logTextStatus = ["Register As A New Player:","Log In As Existing User:"]
-        logText = Text(Point(500,50),logTextStatus[logVal])
-        userEnter = Entry(Point(500,200),50)
-        userEnterText = Text(Point(500,175),"Username:")
-        passEnter = Entry(Point(500,300),50)
-        passEnterText = Text(Point(500,275),"Password:")
-        confirmLog = Rectangle(Point(400,350),Point(600,450))
-        confirmLogText = Text(Point(500,400),"Confirm")
-        logText.draw(win)
-        userEnter.draw(win)
-        userEnterText.draw(win)
-        passEnter.draw(win)
-        passEnterText.draw(win)
-        confirmLog.draw(win)
-        confirmLogText.draw(win)
-        errorText = 0
-        if (logVal==0):
+                userFile = open("userdata.txt").read().split("\n")
+                passFile = open("passdata.txt").read().split("\n")
+                signIn = Rectangle(Point(400,100),Point(600,200))
+                signInText = Text(Point(500,150),"Register Username")
+                logIn = Rectangle(Point(400,225),Point(600,325))
+                logInText = Text(Point(500,275),"Log In As Existing User")
+                signIn.draw(win)
+                signInText.draw(win)
+                logIn.draw(win)
+                logInText.draw(win)
                 while (True):
-                        userButton = win.getMouse()
-                        if (userButton.getX()>=confirmLog.getP1().getX() and userButton.getX()<=confirmLog.getP2().getX() and userButton.getY()>=confirmLog.getP1().getY() and userButton.getY()<=confirmLog.getP2().getY()):                      
-                                for users in userFile:
-                                        if (logVal==0 and userEnter.getText()==users):
-                                                if (errorText!=0):
-                                                        errorText.undraw()
-                                                errorText = Text(Point(500,475),"Username already registered")
-                                                errorText.draw(win)
+                        logButton = win.getMouse()
+                        if (logButton.getX()>=signIn.getP1().getX() and logButton.getX()<=signIn.getP2().getX() and logButton.getY()>=signIn.getP1().getY() and logButton.getY()<=signIn.getP2().getY()):
+                                logVal = 0
+                                break
+                        elif (logButton.getX()>=logIn.getP1().getX() and logButton.getX()<=logIn.getP2().getX() and logButton.getY()>=logIn.getP1().getY() and logButton.getY()<=logIn.getP2().getY()):
+                                logVal = 1
+                                break
+                signIn.undraw()
+                signInText.undraw()
+                logIn.undraw()
+                logInText.undraw()
+                logTextStatus = ["Register As A New Player:","Log In As Existing User:"]
+                logText = Text(Point(500,50),logTextStatus[logVal])
+                userEnter = Entry(Point(500,200),50)
+                userEnterText = Text(Point(500,175),"Username:")
+                passEnter = Entry(Point(500,300),50)
+                passEnterText = Text(Point(500,275),"Password:")
+                confirmLog = Rectangle(Point(400,350),Point(600,450))
+                confirmLogText = Text(Point(500,400),"Confirm")
+                logText.draw(win)
+                userEnter.draw(win)
+                userEnterText.draw(win)
+                passEnter.draw(win)
+                passEnterText.draw(win)
+                confirmLog.draw(win)
+                confirmLogText.draw(win)
+                errorText = 0
+                wait = True
+                if (logVal==0):
+                        while (True):
+                                userButton = win.getMouse()
+                                if (userButton.getX()>=confirmLog.getP1().getX() and userButton.getX()<=confirmLog.getP2().getX() and userButton.getY()>=confirmLog.getP1().getY() and userButton.getY()<=confirmLog.getP2().getY()):                      
+                                        if (errorText!=0):
+                                                errorText.undraw()
+                                        for users in userFile:
+                                                if (logVal==0):
+                                                        if (userEnter.getText()==""):
+                                                                errorText = Text(Point(500,475),"Username required")
+                                                                errorText.setFill("red")
+                                                                errorText.draw(win)
+                                                                break
+                                                        elif (passEnter.getText()==""):
+                                                                errorText = Text(Point(500,475),"Password required")
+                                                                errorText.setFill("red")
+                                                                errorText.draw(win)
+                                                                break
+                                                        elif (userEnter.getText()==users):
+                                                                errorText = Text(Point(500,475),"Username already registered")
+                                                                errorText.setFill("red")
+                                                                errorText.draw(win)
+                                                                break
+                                                        elif (users == userFile[len(userFile)-1]):
+                                                                open("userdata.txt","a").write(userEnter.getText()+"\n")
+                                                                open("passdata.txt","a").write(passEnter.getText()+"\n")
+                                                                userFile = open("userdata.txt").read().split("\n")
+                                                                passFile = open("passdata.txt").read().split("\n")
+                                                                errorText = Text(Point(500,475),"Successfully registered account")
+                                                                errorText.setFill("light green")
+                                                                errorText.draw(win)
+                                                                wait = False
+                                                                time.sleep(1)
+                                        users = 0
+                                        if (wait==False):
+                                                logText.undraw()
+                                                userEnter.undraw()
+                                                userEnterText.undraw()
+                                                passEnter.undraw()
+                                                passEnterText.undraw()
+                                                confirmLog.undraw()
+                                                confirmLogText.undraw()
+                                                errorText.undraw()
                                                 break
+                        
+
         p1 = Person(400,400,20,50,25,25,":|","|")
         p1.draw(win)
         p2 = Person(600,400,20,50,25,25,":|","/")
