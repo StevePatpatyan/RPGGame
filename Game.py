@@ -28,14 +28,18 @@ while (True):
                 elif (introButton.getX()>=close.getP1().getX() and introButton.getX()<=close.getP2().getX() and introButton.getY()>=close.getP1().getY() and introButton.getY()<=close.getP2().getY()):
                         win.close()
                         break
+        loggedIn = 0
+        player = ["Player 1","Player 2"]
+        user1Text = Text(Point(-1,-1),"null")
         #Sign in/log in
         while (True):
                 userFile = open("userdata.txt").read().split("\n")
                 passFile = open("passdata.txt").read().split("\n")
+                scoreFile = open("scoredata.txt").read().split("\n")
                 signIn = Rectangle(Point(400,100),Point(600,200))
                 signInText = Text(Point(500,150),"Register Username")
                 logIn = Rectangle(Point(400,225),Point(600,325))
-                logInText = Text(Point(500,275),"Log In As Existing User")
+                logInText = Text(Point(500,275),"Log In As An Existing User")
                 signIn.draw(win)
                 signInText.draw(win)
                 logIn.draw(win)
@@ -52,7 +56,7 @@ while (True):
                 signInText.undraw()
                 logIn.undraw()
                 logInText.undraw()
-                logTextStatus = ["Register As A New Player:","Log In As Existing User:"]
+                logTextStatus = ["Register As A New Player:","Log In As "+player[loggedIn]+":"]
                 logText = Text(Point(500,50),logTextStatus[logVal])
                 userEnter = Entry(Point(500,200),50)
                 userEnterText = Text(Point(500,175),"Username:")
@@ -74,7 +78,7 @@ while (True):
                         if (userButton.getX()>=confirmLog.getP1().getX() and userButton.getX()<=confirmLog.getP2().getX() and userButton.getY()>=confirmLog.getP1().getY() and userButton.getY()<=confirmLog.getP2().getY()):                      
                                 if (errorText!=0):
                                         errorText.undraw()
-                                for users in userFile:
+                                for users in range(len(userFile)):
                                         if (logVal==0):
                                                 if (userEnter.getText()==""):
                                                         errorText = Text(Point(500,475),"Username required")
@@ -86,16 +90,18 @@ while (True):
                                                         errorText.setFill("red")
                                                         errorText.draw(win)
                                                         break
-                                                elif (userEnter.getText()==users):
+                                                elif (userEnter.getText()== userFile[users]):
                                                         errorText = Text(Point(500,475),"Username already registered")
                                                         errorText.setFill("red")
                                                         errorText.draw(win)
                                                         break
-                                                elif (users == userFile[len(userFile)-1]):
+                                                elif (users == len(userFile)-1):
                                                         open("userdata.txt","a").write(userEnter.getText()+"\n")
                                                         open("passdata.txt","a").write(passEnter.getText()+"\n")
+                                                        open("scoredata.txt","a").write("0-0-0\n")
                                                         userFile = open("userdata.txt").read().split("\n")
                                                         passFile = open("passdata.txt").read().split("\n")
+                                                        scoreFile = open("scoredata.txt").read().split("\n")
                                                         errorText = Text(Point(500,475),"Successfully registered account")
                                                         errorText.setFill("light green")
                                                         errorText.draw(win)
@@ -112,12 +118,35 @@ while (True):
                                                         errorText.setFill("red")
                                                         errorText.draw(win)
                                                         break
-                                                elif (userFile[users]==passFile[users]):
-                                                        errorText = Text(Point(500,475),"Logged in successfully")
-                                                        errorText.setFill("light green")
-                                                        user1Text = Text(Point(500,450),userFile[users])
+                                                elif (userEnter.getText()==userFile[users] and passEnter.getText()!=passFile[users]):
+                                                        errorText = Text(Point(500,475),"Username or password does not match")
+                                                        errorText.setFill("red")
                                                         errorText.draw(win)
-                                                        time.sleep(1)
+                                                        break
+                                                elif (userEnter.getText()==userFile[users] and passEnter.getText()==passFile[users]):
+                                                        if (userEnter.getText()==user1Text.getText()):
+                                                                errorText = Text(Point(500,475),"Username already logged in as Player 1")
+                                                                errorText.setFill("blue")
+                                                                errorText.draw(win)
+                                                                break
+                                                        else:
+                                                                errorText = Text(Point(500,475),"Logged in successfully")
+                                                                errorText.setFill("light green")
+                                                                if (loggedIn==0):
+                                                                        user1Text = Text(Point(400,340),userFile[users])
+                                                                        score1Text = Text(Point(30,490),scoreFile[users])
+                                                                elif (loggedIn==1):
+                                                                        user2Text = Text(Point(600,340),userFile[users])
+                                                                        score2Text = Text(Point(970,490),scoreFile[users])
+                                                                errorText.draw(win)
+                                                                loggedIn = loggedIn+1
+                                                                wait = False
+                                                                time.sleep(1)
+                                                                break
+                                                elif (users == len(userFile)-1):
+                                                        errorText = Text(Point(500,475),"Username does not exist")
+                                                        errorText.setFill("red")
+                                                        errorText.draw(win)
                                                         break
                                 users = 0
                                 if (wait==False):
@@ -130,15 +159,17 @@ while (True):
                                         confirmLogText.undraw()
                                         errorText.undraw()
                                         break
-                        if (wait==False and logVal==1):
-                                break
+                if (wait==False and logVal==1 and loggedIn==2):
+                        break
                                 
                         
 
         p1 = Person(400,400,20,50,25,25,":|","|")
         p1.draw(win)
+        user1Text.draw(win)
         p2 = Person(600,400,20,50,25,25,":|","/")
         p2.draw(win)
+        user2Text.draw(win)
         p1WeaponName = "WoodenSword.png"
         p2WeaponName = "WoodenSword1.png"
         #p1ArmorName = "Leather.png"
@@ -148,7 +179,6 @@ while (True):
         #p1Armor.draw(win)
         p2Weapon = Image(Point(559,427),p2WeaponName)
         p2Weapon.draw(win)
-        player = ["Player 1","Player 2"]
         hp1 = float(100)
         hp2 = float(100)
         hp1Full = hp1
@@ -300,9 +330,11 @@ while (True):
         hp1Text.draw(win)
         hp1BarFilled.draw(win)
         hp1BarEmpty.draw(win)
+        score1Text.draw(win)
         hp2Text.draw(win)
         hp2BarFilled.draw(win)
         hp2BarEmpty.draw(win)
+        score2Text.draw(win)
         #Players choose their move:
         while (hp1>0 and hp2>0):
                 if (powerStatus[p1aVal]=="deflect"):
@@ -622,6 +654,23 @@ while (True):
                         p2.undraw()
                         p2 = Person(600,400,20,50,25,25,"x","/")
                         p2.draw(win)
+                        newScore = score1Text.getText().split("-")
+                        newScore[2] = int(newScore[2])+1
+                        newScore[2] = str(newScore[2])
+                        score1 = "-".join(newScore)
+                        newScore = score2Text.split("-")
+                        newScore[2] = int(newScore[2])+1
+                        newScore[2] = str(newScore[2])
+                        score2 = "-".join(newScore)
+                        for userss in range(len(userFile)):
+                                if (userFile[userss]==user1Text.getText()):
+                                        scoreFile[userss] = score1
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
+                                elif (userFile[userss]==user2Text.getText()):
+                                        scoreFile[userss] = score2
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
                         break
                 elif (hp2<=0):
                         winnerText=Text(Point(500,50),"Player 2 has been defeated. Player 1 wins!")
@@ -629,6 +678,23 @@ while (True):
                         p2.undraw()
                         p2 = Person(600,400,20,50,25,25,"x","/")
                         p2.draw(win)
+                        newScore = score1Text.getText().split("-")
+                        newScore[0] = int(newScore[0])+1
+                        newScore[0] = str(newScore[0])
+                        score1 =  "-".join(newScore)
+                        newScore = score2Text.getText().split("-")
+                        newScore[1] = int(newScore[1])+1
+                        newScore[1] = str(newScore[1])
+                        score2 = "-".join(newScore)
+                        for userss in range(len(userFile)):
+                                if (userFile[userss]==user1Text.getText()):
+                                        scoreFile[userss] = score1
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
+                                elif (userFile[userss]==user2Text.getText()):
+                                        scoreFile[userss] = score2
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
                         break
                 elif (hp1<=0):
                         winnerText=Text(Point(500,50),"Player 1 has been defeated. Player 2 wins!")
@@ -636,6 +702,23 @@ while (True):
                         p1.undraw()
                         p1 = Person(400,400,20,50,25,25,"x","|")
                         p1.draw(win)
+                        newScore = score1Text.getText().split("-")
+                        newScore[1] = int(newScore[1])+1
+                        newScore[1] = str(newScore[1])
+                        score1 = "-".join(newScore)
+                        newScore = score2Text.getText().split("-")
+                        newScore[0] = int(newScore[0])+1
+                        newScore[0] = str(newScore[0])
+                        score2 = "-".join(newScore)
+                        for userss in range(len(userFile)):
+                                if (userFile[userss]==user1Text.getText()):
+                                        scoreFile[userss] = score1
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
+                                elif (userFile[userss]==user2Text.getText()):
+                                        scoreFile[userss] = score2
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
                         break
                 if (speed1<speed2):
                         if (p1wCharge==0):
@@ -858,6 +941,23 @@ while (True):
                         p2.undraw()
                         p2 = Person(600,400,20,50,25,25,"x","/")
                         p2.draw(win)
+                        newScore = score1Text.split("-")
+                        newScore[2] = int(newScore[2])+1
+                        newScore[2] = str(newScore[2])
+                        score1 = "-".join(newScore)
+                        newScore = score2Text.split("-")
+                        newScore[2] = int(newScore[2])+1
+                        newScore[2] = str(newScore[2])
+                        score2 = "-".join(newScore)
+                        for userss in range(len(userFile)):
+                                if (userFile[userss]==user1Text.getText()):
+                                        scoreFile[userss] = score1
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
+                                elif (userFile[userss]==user2Text.getText()):
+                                        scoreFile[userss] = score2
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
                         break
                 elif (hp2<=0):
                         winnerText=Text(Point(500,50),"Player 2 has been defeated. Player 1 wins!")
@@ -865,6 +965,23 @@ while (True):
                         p2.undraw()
                         p2 = Person(600,400,20,50,25,25,"x","/")
                         p2.draw(win)
+                        newScore = score1Text.getText().split("-")
+                        newScore[0] = int(newScore[0])+1
+                        newScore[0] = str(newScore[0])
+                        score1 = "-".join(newScore)
+                        newScore = score2Text.getText().split("-")
+                        newScore[1] = int(newScore[1])+1
+                        newScore[1] = str(newScore[1])
+                        score2 = "-".join(newScore)
+                        for userss in range(len(userFile)):
+                                if (userFile[userss]==user1Text.getText()):
+                                        scoreFile[userss] = score1
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
+                                elif (userFile[userss]==user2Text.getText()):
+                                        scoreFile[userss] = score2
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
                         break
                 elif (hp1<=0):
                         winnerText=Text(Point(500,50),"Player 1 has been defeated. Player 2 wins!")
@@ -872,10 +989,27 @@ while (True):
                         p1.undraw()
                         p1 = Person(400,400,20,50,25,25,"x","|")
                         p1.draw(win)
+                        newScore = score1Text.getText().split("-")
+                        newScore[1] = int(newScore[1])+1
+                        newScore[1] = str(newScore[1])
+                        score1 = "-".join(newScore)
+                        newScore = score2Text.getText().split("-")
+                        newScore[0] = int(newScore[0])+1
+                        newScore[0] = str(newScore[0])
+                        score2 = "-".join(newScore)
+                        for userss in range(len(userFile)):
+                                if (userFile[userss]==user1Text.getText()):
+                                        scoreFile[userss] = score1
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
+                                elif (userFile[userss]==user2Text.getText()):
+                                        scoreFile[userss] = score2
+                                        open("scoredata.txt","w").write("\n".join(scoreFile))
+                                        scoreFile = open("scoredata.txt").read().split("\n")
                         break
                 if (p1wCharge!=0):
                         p1wCharge = p1wCharge+1
-                if (p1wCharge==3):
+                if (p1wCharge==p1wVal+3):
                         successText = Text(Point(500,50),"Player 1 successfully upgraded their weapon!!")
                         successText.draw(win)
                         p1wCharge = 0
@@ -887,7 +1021,7 @@ while (True):
                         successText.undraw()
                 if (p2wCharge!=0):
                         p2wCharge = p2wCharge+1
-                if (p2wCharge==3):
+                if (p2wCharge==p2wVal+3):
                         successText = Text(Point(500,50),"Player 2 successfully upgraded their weapon!!")
                         successText.draw(win)
                         p2wCharge = 0
@@ -910,4 +1044,7 @@ while (True):
         p2Weapon.undraw()
         p1.undraw()
         p2.undraw()
-        
+        user1Text.undraw()
+        score1Text.undraw()
+        user2Text.undraw()
+        score2Text.undraw()
